@@ -2,7 +2,7 @@ export default function handler(req, res) {
   try {
     const { user, pass } = req.query;
 
-    if (user !== "ahmer" || pass !== "1234") {
+    if (user !== "ahmer" || pass !== "7861") {
       return res.status(401).send("#EXTM3U\n# Unauthorized");
     }
 
