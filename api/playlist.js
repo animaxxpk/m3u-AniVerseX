@@ -1,51 +1,18 @@
-import { createClient } from "@supabase/supabase-js";
+export default function handler(req, res) {
+  try {
+    const { user, pass } = req.query;
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
+    if (user !== "ahmer" || pass !== "1234") {
+      return res.status(401).send("#EXTM3U\n# Unauthorized");
+    }
 
-export default async function handler(req, res) {
+    res.setHeader("Content-Type", "text/plain");
 
-  const { user, pass } = req.query;
+    return res.send(`#EXTM3U
+#EXTINF:-1,Test Channel
+https://test-streams.mux.dev/test_001/stream.m3u8`);
 
-
-  if(!user || !pass){
-    return res.status(401).send("Login required");
+  } catch (e) {
+    return res.status(500).send("#EXTM3U\n# Server Error");
   }
-
-
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("username", user)
-    .eq("password", pass)
-    .single();
-
-
-  if(error || !data){
-    return res.status(401).send("Wrong username or password");
-  }
-
-
-  const today = new Date();
-  const expiry = new Date(data.expiry);
-
-
-  if(today > expiry){
-    return res.status(403).send("Account expired");
-  }
-
-
-  const playlist = process.env.PLAYLIST;
-
-
-  res.setHeader(
-    "Content-Type",
-    "application/x-mpegURL"
-  );
-
-
-  res.send(playlist);
-
 }
