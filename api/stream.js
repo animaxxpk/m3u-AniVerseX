@@ -1,26 +1,31 @@
 export default async function handler(req, res) {
   const { id, user, pass } = req.query;
 
-  // AUTH
-  if (user !== "ahmer" || pass !== "8800") {
+  // 🔐 USERS CHECK
+  const u = await fetch("https://raw.githubusercontent.com/animaxxpk/m3u-AniVerseX/main/users.json");
+  const users = await u.json();
+
+  const valid = users.find(
+    x => x.user === user && x.pass === pass && x.active === true
+  );
+
+  if (!valid) {
     return res.status(401).send("Unauthorized");
   }
 
-  // GET CHANNELS
-  const data = await fetch(
-    "https://raw.githubusercontent.com/animaxxpk/m3u-AniVerseX/main/channels.json"
-  );
+  // 📺 CHANNEL MAP (hidden real links)
+  const map = {
+    "1": "http://rolextv.one:80/live/SyedSobanHaidar/03215838388/1.ts "
+  };
 
-  const channels = await data.json();
+  const url = map[id];
 
-  const channel = channels.find(c => c.id === id);
-
-  if (!channel) {
+  if (!url) {
     return res.status(404).send("Not found");
   }
 
-  // 🔥 REAL PROXY (HIDES LINK)
-  const response = await fetch(channel.url);
+  // 🔥 PROXY (HIDES ORIGINAL LINK)
+  const response = await fetch(url);
 
   res.setHeader("Content-Type", "application/vnd.apple.mpegurl");
 
