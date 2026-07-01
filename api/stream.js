@@ -1,7 +1,12 @@
 export default async function handler(req, res) {
   const { id, user, pass } = req.query;
 
-  if (user !== "ahmer" || pass !== "8800") {
+  const users = {
+    ahmer: "8800",
+    ali: "1234"
+  };
+
+  if (!users[user] || users[user] !== pass) {
     return res.status(401).send("Unauthorized");
   }
 
