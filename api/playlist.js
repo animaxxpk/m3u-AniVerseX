@@ -2,14 +2,15 @@ export default async function handler(req, res) {
   try {
     const { user, pass } = req.query;
 
-   if (
-(user !== "ahmer" || pass !== "8800") &&
-(user !== "ali" || pass !== "1234") &&
-      res.setHeader("Content-Type", "text/plain");
-      return res.status(401).send("#EXTM3U\n# Unauthorized");
-    }
+if (
+  (user !== "ahmer" || pass !== "8800") &&
+  (user !== "ali" || pass !== "1234")
+) {
+  res.setHeader("Content-Type", "text/plain");
+  return res.status(401).send("#EXTM3U\n# Unauthorized");
+}
 
-    const channels = [
+const channels = [
       {
         id: "1",
         name: "Test Channel"
