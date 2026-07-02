@@ -1,26 +1,14 @@
 import { users } from "./users";
+import { channels } from "./channels";
 
 export default async function handler(req, res) {
   try {
     const { user, pass } = req.query;
 
-    const account = users[user];
-
-    if (
-      !account ||
-      account.password !== pass ||
-      account.active !== true
-    ) {
+    if (!users[user] || users[user] !== pass) {
       res.setHeader("Content-Type", "text/plain");
       return res.status(401).send("#EXTM3U\n# Unauthorized");
     }
-
-    const channels = [
-      {
-        id: "1",
-        name: "Test Channel"
-      }
-    ];
 
     let m3u = "#EXTM3U\n";
 
