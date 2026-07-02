@@ -1,5 +1,14 @@
 export const users = {
-  ahmer: "8888",
-  ali: "1234",
-  test: "0000"
+  ahmer: {
+    password: "8888",
+    expiry: "2026-12-31"
+  },
+  ali: {
+    password: "1234",
+    expiry: "2026-08-15"
+  },
+  test: {
+    password: "0000",
+    expiry: "2026-07-10"
+  }
 };
