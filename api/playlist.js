@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     let m3u = "#EXTM3U\n";
 
     channels.forEach((ch) => {
-      m3u += `#EXTINF:-1,${ch.name}\n`;
+      m3u += `#EXTINF:-1 tvg-id="${ch.name}" group-title="${ch.category}",${ch.name}\n`;
       m3u += `${req.headers["x-forwarded-proto"] || "https"}://${req.headers.host}/api/stream?id=${ch.id}&user=${user}&pass=${pass}\n`;
     });
 
