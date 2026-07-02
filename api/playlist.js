@@ -5,9 +5,18 @@ export default async function handler(req, res) {
   try {
     const { user, pass } = req.query;
 
-    if (!users[user] || users[user] !== pass) {
+    const account = users[user];
+
+    // Username / Password check
+    if (!account || account.password !== pass) {
       res.setHeader("Content-Type", "text/plain");
       return res.status(401).send("#EXTM3U\n# Unauthorized");
+    }
+
+    // Expiry check
+    if (account.expiry && new Date() > new Date(account.expiry)) {
+      res.setHeader("Content-Type", "text/plain");
+      return res.status(403).send("#EXTM3U\n# Account Expired");
     }
 
     let m3u = "#EXTM3U\n";
