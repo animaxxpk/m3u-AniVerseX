@@ -20,7 +20,10 @@ export default function handler(req, res) {
   const exp = Math.floor(
     new Date(user.expiry + "T23:59:59Z").getTime() / 1000
   ).toString();
-
+  
+import { users } from "./users";
+import { channels } from "./channels";
+  
   return res.status(200).json({
     user_info: {
       auth: 1,
@@ -35,8 +38,8 @@ export default function handler(req, res) {
     },
     server_info: {
       url: "nex-tv.vercel.app",
-      port: "80",
       https_port: "443",
+      port: "80",
       server_protocol: "http",
       timezone: "Asia/Karachi",
       timestamp_now: Math.floor(Date.now() / 1000)
