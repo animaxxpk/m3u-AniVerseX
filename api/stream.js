@@ -1,3 +1,17 @@
+import { channels } from "./channels";
+
+export default function handler(req, res) {
+  const { id } = req.query;
+
+  const channel = channels.find(c => c.id === id);
+
+  if (!channel) {
+    return res.status(404).send("Channel not found");
+  }
+
+  res.redirect(channel.stream);
+}
+
 import { users } from "./users";
 import { channels } from "./channels";
 
