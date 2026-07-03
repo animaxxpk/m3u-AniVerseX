@@ -1,31 +1,14 @@
-const BASE_URL = "https://nex-tv.vercel.app";
+import { users } from "./users";
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
   res.setHeader("Content-Type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "*");
 
   const { username, password } = req.query;
 
-  // Demo Users
-  const users = [
-    {
-      username: "ahmer",
-      password: "8888",
-      status: "Active",
-      auth: 1,
-      exp_date: "1783382400", // Change if needed
-      is_trial: "0",
-      active_cons: "0",
-      max_connections: "1",
-      allowed_output_formats: ["ts", "m3u8"]
-    }
-  ];
+  const user = users[username];
 
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  );
-
-  if (!user) {
+  if (!user || user.password !== password) {
     return res.status(200).json({
       user_info: {
         auth: 0,
@@ -34,23 +17,27 @@ export default async function handler(req, res) {
     });
   }
 
+  const exp = Math.floor(
+    new Date(user.expiry + "T23:59:59Z").getTime() / 1000
+  ).toString();
+
   return res.status(200).json({
     user_info: {
-      auth: user.auth,
+      auth: 1,
       status: user.status,
-      username: user.username,
-      password: user.password,
-      exp_date: user.exp_date,
-      is_trial: user.is_trial,
-      active_cons: user.active_cons,
-      max_connections: user.max_connections,
-      allowed_output_formats: user.allowed_output_formats
+      username,
+      password,
+      exp_date: exp,
+      is_trial: "0",
+      active_cons: "0",
+      max_connections: String(user.max_connections),
+      allowed_output_formats: ["ts", "m3u8"]
     },
     server_info: {
       url: "nex-tv.vercel.app",
-      port: "443",
+      port: "80",
       https_port: "443",
-      server_protocol: "https",
+      server_protocol: "http",
       timezone: "Asia/Karachi",
       timestamp_now: Math.floor(Date.now() / 1000)
     }
