@@ -23,7 +23,36 @@ export default function handler(req, res) {
   
 import { users } from "./users";
 import { channels } from "./channels";
-  
+  // Live Categories
+if (action === "get_live_categories") {
+  const categories = [...new Set(channels.map(c => c.category))];
+
+  return res.status(200).json(
+    categories.map((cat, index) => ({
+      category_id: String(index + 1),
+      category_name: cat,
+      parent_id: 0
+    }))
+  );
+}
+
+// Live Streams
+if (action === "get_live_streams") {
+  const categories = [...new Set(channels.map(c => c.category))];
+
+  return res.status(200).json(
+    channels.map((ch, index) => ({
+      num: index + 1,
+      name: ch.name,
+      stream_type: "live",
+      stream_id: Number(ch.id),
+      stream_icon: ch.logo || "",
+      category_id: String(categories.indexOf(ch.category) + 1),
+      added: "",
+      is_adult: "0"
+    }))
+  );
+}
   return res.status(200).json({
     user_info: {
       auth: 1,
