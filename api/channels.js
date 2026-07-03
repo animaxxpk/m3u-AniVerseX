@@ -1,10 +1,10 @@
 export const channels = [
   {
     id: "1",
-    name: "Saudi Quran",
-    category: "ISLAMIC",
+    name: "Cartoon Network",
+    category: "PK | KIDS CARTOON",
     logo: "",
-    stream: "http://rolextv.one:80/live/SyedSobanHaidar/03215838388/2.ts"
+    stream: "https://s3.ideationtec.live/Cartoon_Network/Cartoon_Network.m3u8"
   },
 
   {
