@@ -17,3 +17,4 @@ https://nex-tv.vercel.app/api/stream?id=2&user=${username}&pass=${password}
   res.setHeader("Content-Type", "application/x-mpegURL");
   res.send(playlist);
 }
+stream_url: `https://nex-tv.vercel.app/api/stream?id=${ch.id}`,
