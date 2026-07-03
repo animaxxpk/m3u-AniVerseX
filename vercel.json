@@ -1,16 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/playlist.m3u",
-      "destination": "/api/playlist"
-    },
-    {
-      "source": "/player_api.php",
-      "destination": "/api/player_api"
-    },
-    {
-      "source": "/get.php",
-      "destination": "/api/get"
+      "source": "/:user/:pass/playlist.m3u",
+      "destination": "/api/playlist?user=:user&pass=:pass"
     }
   ]
 }
