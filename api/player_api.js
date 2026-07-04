@@ -60,25 +60,36 @@ export default function handler(req, res) {
     );
   }
 
-  // Live Streams
-  if (action === "get_live_streams") {
-    const categories = [...new Set(channels.map(c => c.category))];
+ // Live Streams
+if (action === "get_live_streams") {
 
-    return res.status(200).json(
-      channels.map((ch, index) => ({
-        num: index + 1,
-        name: ch.name,
-        stream_type: "live",
-        stream_id: Number(ch.id),
-        stream_icon: ch.logo || "",
-        category_id: String(categories.indexOf(ch.category) + 1),
-        added: "",
-        is_adult: "0",
-        direct_source: "",
-        stream_url: `https://nex-tv.vercel.app/api/stream?id=${ch.id}`
-      }))
+  const categories = [...new Set(channels.map(c => c.category))];
+
+  const { category_id } = req.query;
+
+  let filteredChannels = channels;
+
+  if (category_id) {
+    filteredChannels = channels.filter(
+      ch => String(categories.indexOf(ch.category) + 1) === String(category_id)
     );
   }
+
+  return res.status(200).json(
+    filteredChannels.map((ch, index) => ({
+      num: index + 1,
+      name: ch.name,
+      stream_type: "live",
+      stream_id: Number(ch.id),
+      stream_icon: ch.logo || "",
+      category_id: String(categories.indexOf(ch.category) + 1),
+      added: "",
+      is_adult: "0",
+      direct_source: "",
+      stream_url: `https://nex-tv.vercel.app/api/stream?id=${ch.id}`
+    }))
+  );
+}
 
   return res.json([]);
 }
