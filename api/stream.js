@@ -1,35 +1,23 @@
 import { channels } from "./channels";
-import { users } from "./users"; // users.js
+import { users } from "./users";
 
 export default function handler(req, res) {
   const { id, user, pass } = req.query;
 
-  // Login required
   if (!user || !pass) {
-    return res.status(401).json({
-      error: "Username and password required"
-    });
+    return res.status(401).send("Username and password required");
   }
 
-  // User verify
-  const account = users.find(
-    u => u.username === user && u.password === pass
-  );
+  const account = users[user];
 
-  if (!account) {
-    return res.status(403).json({
-      error: "Invalid username or password"
-    });
+  if (!account || account.password !== pass) {
+    return res.status(401).send("Invalid username or password");
   }
 
-  // Expiry check
   if (new Date(account.expiry) < new Date()) {
-    return res.status(403).json({
-      error: "Account expired"
-    });
+    return res.status(403).send("Account expired");
   }
 
-  // Channel
   const channel = channels.find(c => c.id === String(id));
 
   if (!channel) {
