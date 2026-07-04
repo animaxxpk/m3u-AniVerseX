@@ -86,7 +86,6 @@ if (action === "get_live_streams") {
       added: "",
       is_adult: "0",
       direct_source: "",
-      stream_url: `https://nex-tv.vercel.app/api/stream?id=${ch.id}`
     }))
   );
 }
