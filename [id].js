@@ -2,8 +2,13 @@ import { users } from "../../../users";
 import { channels } from "../../../channels";
 
 export default function handler(req, res) {
-  const { username, password, id } = req.query;
+ const { user, pass, id } = req.query;
 
+const account = users[user];
+
+if (!account || account.password !== pass) {
+    return res.status(401).send("Invalid user");
+}
   const user = users[username];
 
   if (!user || user.password !== password) {
