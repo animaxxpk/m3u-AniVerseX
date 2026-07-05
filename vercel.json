@@ -11,6 +11,10 @@
     {
       "source": "/playlist.m3u",
       "destination": "/api/playlist"
+      {
+  "source": "/live/:user/:pass/:id.ts",
+  "destination": "/api/live/:user/:pass/:id"
+}
     },
     {
       "source": "/:user/:pass/playlist.m3u",
