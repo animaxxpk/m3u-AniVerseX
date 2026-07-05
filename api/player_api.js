@@ -36,14 +36,15 @@ export default function handler(req, res) {
         max_connections: String(user.max_connections),
         allowed_output_formats: ["ts", "m3u8"]
       },
-      server_info: {
-        url: "nex-tv.vercel.app",
-        port: "80",
-        https_port: "443",
-        server_protocol: "http",
-        timezone: "Asia/Karachi",
-        timestamp_now: Math.floor(Date.now() / 1000)
-      }
+server_info: {
+  url: "nex-tv.vercel.app",
+  port: "443",
+  https_port: "443",
+  server_protocol: "https",
+  timezone: "Asia/Karachi",
+  timestamp_now: Math.floor(Date.now() / 1000),
+  time_now: new Date().toISOString()
+}
     });
   }
 
