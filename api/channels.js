@@ -1,4 +1,4 @@
-export const channels = [
+const channels = [
   {
     id: "1",
     name: "Saudi Quran",
