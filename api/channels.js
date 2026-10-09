@@ -776,13 +776,21 @@ export const channels = [
     logo: "https://www.lyngsat.com/logo/tv/rr/raavi_tv.png",
     stream: "http://tv8ott.online:80/live/03215838388/abc@786C/27083.ts"
   },
+    {
+    id: "138",
+    name: "HEY TV",
+    category: "PK | ENTERTAINMENT",
+    logo: "",
+    stream: "http://tv8ott.online/live/03215838388/abc@786C/370883.m3u8"
+  },
   {
-    id: "112",
+    id: "139",
     name: "Cartoon Network HD",
     category: "PK | KIDS CARTOON",
-    logo: "https://animaxxpk.github.io/AnozenX-Tv/cnlogo.jpg",
-    stream: "https://tapmadlive.akamaized.net/tapmadold/cartoon.smil/chunklist_w1684291526_b748000_slEng.m3u8"
-  },
+    logo: "",
+    stream: "http://tv8ott.online/live/03215838388/abc@786C/82.m3u8"
+  }
+},
   {
     id: "113",
     name: "Cartoon Network Lite",
