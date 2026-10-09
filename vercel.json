@@ -1,24 +1,4 @@
 {
-  "rewrites": [
-    {
-      "source": "/player_api.php",
-      "destination": "/api/player_api"
-    },
-    {
-      "source": "/get.php",
-      "destination": "/api/get"
-    },
-    {
-      "source": "/playlist.m3u",
-      "destination": "/api/playlist"
-    },
-    {
-      "source": "/:user/:pass/playlist.m3u",
-      "destination": "/api/playlist?user=:user&pass=:pass"
-    },
-    {
-      "source": "/live/:user/:pass/:id.ts",
-      "destination": "/api/live/:user/:pass/:id"
-    }
-  ]
+  "source": "/:user/:pass/playlist.m3u",
+  "destination": "/api/playlist?user=:user&pass=:pass"
 }
